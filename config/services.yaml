@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    App\:
+        resource: '../src/'
+
+    App\EventListener\Response\NoIndexResponseListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }

@@ -1,0 +1,8 @@
+twig:
+    file_name_pattern: '*.twig'
+    globals:
+        website_title: '%env(string:APP_TITLE)%'
+        website_description: '%env(string:APP_DESCRIPTION)%'
+when@test:
+    twig:
+        strict_variables: true

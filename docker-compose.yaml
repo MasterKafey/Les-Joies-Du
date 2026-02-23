@@ -1,0 +1,32 @@
+services:
+    database.les-joies-de:
+        image: postgres:17
+        container_name: database.les-joies-de
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: les-joies-de
+            POSTGRES_USER: les-joies-de
+            POSTGRES_PASSWORD: les-joies-de
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./volumes/database/data:/var/lib/postgresql/data
+        networks:
+            - database
+
+    web.les-joies-de:
+        image: les-joies-de:latest
+        container_name: web.les-joies-de
+        ports:
+            - "80:80"
+        restart: unless-stopped
+        environment:
+            APP_ENV: 'prod'
+            APP_TITLE: 'Les joies de'
+            APP_DESCRIPTION: 'Développement, backend, erreurs subtiles, choix techniques discutables et plaisir d’un système bien conçu.'
+            DATABASE_URL: 'postgresql://les-joies-de:les-joies-de@database.les-joies-de:5432/les-joies-de?serverVersion=16&charset=utf8'
+        networks:
+            - database
+
+networks:
+    database:

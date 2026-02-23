@@ -1,0 +1,66 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section class="max-w-md mx-auto px-6 py-24">
+        <h1 class="text-3xl font-semibold mb-10 text-center">
+            Inscription
+        </h1>
+
+        <div class="bg-slate-900/40 backdrop-blur rounded-xl p-8">
+            {{ form_start(form, {
+                attr: { class: 'space-y-8' }
+            }) }}
+
+            <div>
+                {{ form_row(form.email, {
+                    label: 'Email',
+                    label_attr: { class: 'block mb-2 text-sm text-slate-300' },
+                    attr: {
+                        class: 'w-full bg-transparent border-b border-slate-600 py-2 text-slate-100 focus:outline-none focus:border-slate-300'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_row(form.username, {
+                    label: 'Pseudonyme',
+                    label_attr: { class: 'block mb-2 text-sm text-slate-300' },
+                    attr: {
+                        class: 'w-full bg-transparent border-b border-slate-600 py-2 text-slate-100 focus:outline-none focus:border-slate-300'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_row(form.plainPassword.first, {
+                    label: 'Mot de passe',
+                    label_attr: { class: 'block mb-2 text-sm text-slate-300' },
+                    attr: {
+                        class: 'w-full bg-transparent border-b border-slate-600 py-2 text-slate-100 focus:outline-none focus:border-slate-300'
+                    }
+                }) }}
+            </div>
+
+            <div>
+                {{ form_row(form.plainPassword.second, {
+                    label: 'Confirmer le mot de passe',
+                    label_attr: { class: 'block mb-2 text-sm text-slate-300' },
+                    attr: {
+                        class: 'w-full bg-transparent border-b border-slate-600 py-2 text-slate-100 focus:outline-none focus:border-slate-300'
+                    }
+                }) }}
+            </div>
+
+            <button
+                type="submit"
+                class="w-full px-6 py-2 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-950"
+            >
+                S’inscrire
+            </button>
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock body %}

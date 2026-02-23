@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ website_title }}{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
+
+<header class="border-b border-gray-800" x-data="{ open: false }">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+        <a href="{{ path('app_home_index') }}"
+           class="text-lg sm:text-xl font-semibold tracking-tight">
+            {{ website_title }}
+        </a>
+
+        <button
+            @click="open = !open"
+            class="sm:hidden text-gray-300 hover:text-white"
+            aria-label="Menu">
+            ☰
+        </button>
+
+        <nav class="hidden sm:flex space-x-6 text-sm text-gray-300">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_user_list') }}" class="hover:text-white">Utilisateurs</a>
+            {% endif %}
+            <a href="{{ path('app_post_create') }}" class="hover:text-white">Créer un poste</a>
+            {% if app.user is not null %}
+                <a href="{{ path('app_logout') }}" class="hover:text-white">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_authentication_login') }}" class="hover:text-white">Connexion</a>
+                <a href="{{ path('app_authentication_register') }}" class="hover:text-white">Inscription</a>
+            {% endif %}
+        </nav>
+    </div>
+
+    <div x-show="open"
+         x-transition
+         @click.outside="open = false"
+         class="sm:hidden border-t border-gray-800 bg-gray-950">
+        <nav class="flex flex-col px-4 py-4 space-y-3 text-sm text-gray-300">
+            <a href="{{ path('app_post_create') }}" class="hover:text-white">Créer un poste</a>
+            {% if app.user is not null %}
+                <a href="{{ path('app_logout') }}" class="hover:text-white">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_authentication_login') }}" class="hover:text-white">Connexion</a>
+                <a href="{{ path('app_authentication_register') }}" class="hover:text-white">Inscription</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main class="flex-1">
+    {% block body %}{% endblock body %}
+</main>
+
+<footer class="border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6
+                text-sm text-gray-500
+                flex flex-col sm:flex-row
+                gap-2 sm:gap-0
+                justify-between items-center">
+        <span>© {{ "now"|date("Y") }} {{ website_title }}</span>
+        <span>Made with ❤️ by MasterKafey</span>
+    </div>
+</footer>
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>
